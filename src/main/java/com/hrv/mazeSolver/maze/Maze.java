@@ -1,5 +1,7 @@
 package com.hrv.mazeSolver.maze;
 
+import com.hrv.mazeSolver.solver.DepthFirst;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Maze {
     private int height;
     private Coordinates start;
     private Coordinates end;
-    private List<MazeSection> maze = new ArrayList<>();
+    private List<MazeSection> maze = new ArrayList<MazeSection>();
     private String wall = "1";
     private String floor = "0";
 
@@ -23,10 +25,41 @@ public class Maze {
         this.end = new Coordinates(getMeteData(list.get(2),0), getMeteData(list.get(2),1));
         //Index 3 onwards is the maze, so sublist
         generateMaze(list.subList(3, list.size()));
+        populateNeighbours();
+    }
+
+    public void solve(){
+        DepthFirst depthFirst = new DepthFirst(maze);
+        depthFirst.solve();
     }
 
     private int getMeteData(String data, int index){
         return Integer.parseInt(data.split(" ")[index]);
+    }
+
+    private void populateNeighbours(){
+        for(int i=0; i<maze.size(); i++){
+            MazeSection mazeSection = maze.get(i);
+            if(mazeSection instanceof Floor){
+                //Check North,East,South,West for other floors
+                int northIndex = i-width;
+                int eastIndex = i+1;
+                int southIndex = i+width;
+                int westIndex = i-1;
+                if(northIndex > 0 && maze.get(northIndex) instanceof Floor) {
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(northIndex));
+                }
+                if(eastIndex < maze.size() && maze.get(eastIndex) instanceof Floor){
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(eastIndex));
+                }
+                if(southIndex < maze.size() && maze.get(southIndex) instanceof Floor){
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(southIndex));
+                }
+                if(westIndex > 0 && maze.get(westIndex) instanceof Floor){
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(westIndex));
+                }
+            }
+        }
     }
 
     private void generateMaze(List<String> list){

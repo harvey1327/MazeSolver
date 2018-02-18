@@ -1,23 +1,38 @@
 package com.hrv.mazeSolver.maze;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Floor extends MazeSection {
 
     private boolean start = false;
     private boolean end = false;
+    private List<Floor> neighbours;
 
 
     public Floor(Coordinates coordinates) {
         super(coordinates);
+        neighbours = new ArrayList<Floor>();
     }
 
     public String toString() {
-        if(start){
-            return "S";
-        } else if(end){
-            return "E";
-        } else {
-            return " ";
-        }
+        return super.getCoordinates().toString();
+    }
+
+    public void addNeighbour(Floor floor){
+        neighbours.add(floor);
+    }
+
+    public List<Floor> getNeighbour(){
+        return neighbours;
+    }
+
+    public boolean isStart(){
+        return start;
+    }
+
+    public boolean isEnd(){
+        return end;
     }
 
     public void setStart() {

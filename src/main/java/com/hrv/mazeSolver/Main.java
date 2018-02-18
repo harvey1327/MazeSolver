@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String args[]){
         List<String> list = new FileIO().readFileIntoList("input.txt");
-        System.out.println(list);
         Maze maze = new Maze(list);
         maze.print();
+        maze.solve();
     }
 }
