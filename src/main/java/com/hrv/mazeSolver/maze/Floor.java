@@ -7,6 +7,7 @@ public class Floor extends MazeSection {
 
     private boolean start = false;
     private boolean end = false;
+    private boolean visited = false;
     private List<Floor> neighbours;
 
 
@@ -17,6 +18,11 @@ public class Floor extends MazeSection {
 
     public String toString() {
         return super.getCoordinates().toString();
+//        if(visited){
+//            return "P";
+//        } else {
+//            return " ";
+//        }
     }
 
     public void addNeighbour(Floor floor){
@@ -29,6 +35,14 @@ public class Floor extends MazeSection {
 
     public boolean isStart(){
         return start;
+    }
+
+    public void setVisited(){
+        visited = true;
+    }
+
+    public boolean isVisited(){
+        return visited;
     }
 
     public boolean isEnd(){

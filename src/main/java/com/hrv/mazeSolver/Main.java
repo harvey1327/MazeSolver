@@ -8,9 +8,10 @@ import java.util.List;
 public class Main {
 
     public static void main(String args[]){
-        List<String> list = new FileIO().readFileIntoList("input.txt");
+        List<String> list = new FileIO().readFileIntoList("Harvey_test.txt");
         Maze maze = new Maze(list);
         maze.print();
         maze.solve();
+        //maze.print();
     }
 }
