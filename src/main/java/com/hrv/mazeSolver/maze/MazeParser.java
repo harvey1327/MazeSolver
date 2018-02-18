@@ -5,7 +5,7 @@ import com.hrv.mazeSolver.solver.DepthFirst;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Maze {
+public class MazeParser {
 
     private int width;
     private int height;
@@ -15,7 +15,7 @@ public class Maze {
     private String wall = "1";
     private String floor = "0";
 
-    public Maze(List<String> list){
+    public MazeParser(List<String> list){
         //Index 0 is Width,Height
         this.width = getMeteData(list.get(0),0);
         this.height = getMeteData(list.get(0),1);
@@ -30,7 +30,14 @@ public class Maze {
 
     public void solve(){
         DepthFirst depthFirst = new DepthFirst(maze);
-        depthFirst.solve();
+        List<MazeSection> solvedMaze = depthFirst.solve();
+        for(int i=0; i<solvedMaze.size(); i++){
+            if(i%width<width-1){
+                System.out.print(solvedMaze.get(i));
+            } else {
+                System.out.println(solvedMaze.get(i));
+            }
+        }
     }
 
     private int getMeteData(String data, int index){
