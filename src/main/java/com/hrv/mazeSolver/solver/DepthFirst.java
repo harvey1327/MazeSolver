@@ -5,11 +5,13 @@ import com.hrv.mazeSolver.maze.MazeSection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class DepthFirst {
 
     private List<MazeSection> maze;
-    private List<Floor> path = new ArrayList<Floor>();
+    private Stack<Floor> stack= new Stack<Floor>();
+    private boolean found = false;
 
     public DepthFirst(List<MazeSection> maze){
         this.maze=maze;
@@ -25,24 +27,47 @@ public class DepthFirst {
                 }
             }
         }
-        System.out.println(path);
+        System.out.println("Stack: "+stack);
+    }
+
+    public void dfs(Floor floor){
+        Stack<Floor> stack= new Stack<Floor>();
+        stack.add(floor);
+        floor.setVisited();
+        while(!found){
+            System.out.println("Stack: "+stack);
+            Floor stackFloor = stack.peek();
+            List<Floor> neighbours = stackFloor.getNeighbour();
+            for(Floor neighbourFloor : neighbours){
+                if (!neighbourFloor.isVisited()) {
+                    stack.add(neighbourFloor);
+                    neighbourFloor.setVisited();
+                    if(neighbourFloor.isEnd()){
+                        found = true;
+                    }
+                } else {
+                    stack.pop();
+                }
+            }
+        }
     }
 
     public void recursionDF(Floor floor){
-        System.out.println("Going into "+floor);
+        System.out.println("Adding Floor: "+floor);
+        stack.add(floor);
+        floor.setVisited();
+        List<Floor> neighbours = floor.getNeighbour();
         if(!floor.isEnd()){
-            System.out.println("Not End "+floor);
-            List<Floor> neighbours = floor.getNeighbour();
-            floor.setVisited();
             for(Floor neighbourFloor : neighbours) {
-                System.out.println(floor+" has neighbour "+neighbourFloor);
+                System.out.println("Looking at neighbour: "+neighbourFloor);
                 if (!neighbourFloor.isVisited()) {
                     recursionDF(neighbourFloor);
+                } else {
+                    System.out.println(stack);
+                    System.out.println("Popping: "+stack.peek() +" at "+floor);
+                    stack.pop();
                 }
             }
-        } else {
-            System.out.println("Is End "+floor);
         }
-        System.out.println("Finished "+floor);
     }
 }
