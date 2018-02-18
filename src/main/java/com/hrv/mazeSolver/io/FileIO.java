@@ -1,4 +1,4 @@
-package com.hrv.mazeSolver.IO;
+package com.hrv.mazeSolver.io;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

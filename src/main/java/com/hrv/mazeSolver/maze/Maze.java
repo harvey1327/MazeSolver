@@ -5,21 +5,55 @@ import java.util.List;
 
 public class Maze {
 
-    private List<MazeSection> maze = new ArrayList<>();
     private int width;
     private int height;
     private Coordinates start;
     private Coordinates end;
+    private List<MazeSection> maze = new ArrayList<>();
+    private String wall = "1";
+    private String floor = "0";
 
     public Maze(List<String> list){
         //Index 0 is Width,Height
-        this.width = getMeteData(list, 0,0);
-        this.height = getMeteData(list, 0,1);
+        this.width = getMeteData(list.get(0),0);
+        this.height = getMeteData(list.get(0),1);
         //Index 1 is StartX,StartY
-        this.start = new Coordinates(getMeteData(list, 1,0), getMeteData(list, 1,1));
+        this.start = new Coordinates(getMeteData(list.get(1),0), getMeteData(list.get(1),1));
         //Index 2 is EndX,EndY
-        this.end = new Coordinates(getMeteData(list, 2,0), getMeteData(list, 2,1));
-        generateMaze(list);
+        this.end = new Coordinates(getMeteData(list.get(2),0), getMeteData(list.get(2),1));
+        //Index 3 onwards is the maze, so sublist
+        generateMaze(list.subList(3, list.size()));
+    }
+
+    private int getMeteData(String data, int index){
+        return Integer.parseInt(data.split(" ")[index]);
+    }
+
+    private void generateMaze(List<String> list){
+        for(int y=0; y<height; y++){
+            String[] row = list.get(y).split(" ");
+            for(int x=0; x<width; x++){
+                String s = row[x];
+                Coordinates coordinates = new Coordinates(x,y);
+                MazeSection mazeSection = null;
+                if(s.equals(wall)){
+                    mazeSection = new Wall(coordinates);
+                } else if(s.equals(floor)) {
+                    mazeSection = getFloor(coordinates);
+                }
+                maze.add(mazeSection);
+            }
+        }
+    }
+
+    private MazeSection getFloor(Coordinates coordinates){
+        MazeSection mazeSection = new Floor(coordinates);
+        if(mazeSection.getCoordinates().compare(start)){
+            ((Floor) mazeSection).setStart();
+        } else if(mazeSection.getCoordinates().compare(end)){
+            ((Floor) mazeSection).setEnd();
+        }
+        return mazeSection;
     }
 
     public void print(){
@@ -32,32 +66,6 @@ public class Maze {
                 System.out.print(maze.get(i));
             } else {
                 System.out.println(maze.get(i));
-            }
-        }
-    }
-
-    private int getMeteData(List<String> list, int firstIndex, int secondIndex){
-        return Integer.parseInt(list.get(firstIndex).split(" ")[secondIndex]);
-    }
-
-    private void generateMaze(List<String> list){
-        for(int y=3; y<list.size(); y++){
-            String[] row = list.get(y).split(" ");
-            for(int x=0; x<row.length; x++){
-                String s = row[x];
-                Coordinates coordinates = new Coordinates(x,y-3);
-                MazeSection mazeSection = null;
-                if(s.equals("1")){
-                    mazeSection = new Wall(coordinates);
-                } else if(s.equals("0")) {
-                    mazeSection = new Floor(coordinates);
-                    if(mazeSection.getCoordinates().compare(start)){
-                        ((Floor) mazeSection).setStart();
-                    } else if(mazeSection.getCoordinates().compare(end)){
-                        ((Floor) mazeSection).setEnd();
-                    }
-                }
-                maze.add(mazeSection);
             }
         }
     }
