@@ -39,12 +39,10 @@ public class DepthFirst {
 
     /**
      * Update maze object with path to return a solved maze
-     * @param maze
-     * @return
+     * @param sectionList
      */
-    private List<MazeSection> updateMazeWithPath(List<MazeSection> maze){
-        List<MazeSection> solvedMaze = new ArrayList<>(maze);
-        for(MazeSection section : maze){
+    private void updateMazeWithPath(List<MazeSection> sectionList){
+        for(MazeSection section : sectionList){
             if(section instanceof Floor){
                 Floor floor = (Floor) section;
                 if(finalStack.contains(floor)){
@@ -52,7 +50,6 @@ public class DepthFirst {
                 }
             }
         }
-        return solvedMaze;
     }
 
     /**
