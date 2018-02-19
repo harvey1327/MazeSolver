@@ -4,8 +4,6 @@ import java.util.List;
 
 public class MazeParser {
 
-    private int width;
-    private int height;
     private Coordinates start;
     private Coordinates end;
     private Maze maze;
@@ -14,16 +12,16 @@ public class MazeParser {
 
     public MazeParser(List<String> list){
         //Index 0 is Width,Height
-        this.width = getMeteData(list.get(0),0);
-        this.height = getMeteData(list.get(0),1);
+        int width = getMeteData(list.get(0),0);
+        int height = getMeteData(list.get(0),1);
         //Index 1 is StartX,StartY
         this.start = new Coordinates(getMeteData(list.get(1),0), getMeteData(list.get(1),1));
         //Index 2 is EndX,EndY
         this.end = new Coordinates(getMeteData(list.get(2),0), getMeteData(list.get(2),1));
         this.maze = new Maze(width, height);
         //Index 3 onwards is the maze, so sublist
-        generateMaze(list.subList(3, list.size()));
-        populateNeighbours();
+        generateMaze(list.subList(3, list.size()), width, height);
+        populateNeighbours(width);
     }
 
     public Maze getMaze(){
@@ -34,7 +32,7 @@ public class MazeParser {
         return Integer.parseInt(data.split(" ")[index]);
     }
 
-    private void populateNeighbours(){
+    private void populateNeighbours(int width){
         for(int i=0; i<maze.getSize(); i++){
             MazeSection mazeSection = maze.getSection(i);
             if(mazeSection instanceof Floor){
@@ -59,7 +57,7 @@ public class MazeParser {
         }
     }
 
-    private void generateMaze(List<String> list){
+    private void generateMaze(List<String> list, int width, int height){
         for(int y=0; y<height; y++){
             String[] row = list.get(y).split(" ");
             for(int x=0; x<width; x++){

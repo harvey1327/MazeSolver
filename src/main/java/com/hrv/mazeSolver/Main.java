@@ -14,6 +14,8 @@ public class Main {
         MazeParser mazeParser = new MazeParser(list);
         Maze maze = mazeParser.getMaze();
 
+        maze.print();
+        System.out.println("-------------------------------");
         DepthFirst depthFirst = new DepthFirst(maze);
         depthFirst.solve();
 
