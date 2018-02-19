@@ -9,7 +9,7 @@ public class Maze {
     private int width;
     private int height;
 
-    Maze(int width, int height){
+    public Maze(int width, int height){
         this.width=width;
         this.height=height;
     }
