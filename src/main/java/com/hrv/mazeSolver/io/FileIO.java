@@ -9,6 +9,12 @@ import java.util.stream.Stream;
 
 public class FileIO {
 
+    /**
+     * Reads in file supplied as a path and converts to
+     * a List<String>
+     * @param fileName
+     * @return
+     */
     public List<String> readFileIntoList(String fileName){
         List<String> list = null;
         try {

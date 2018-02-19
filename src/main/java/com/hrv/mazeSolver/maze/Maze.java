@@ -10,32 +10,61 @@ public class Maze {
     private int height;
     private boolean solved = false;
 
+    /**
+     * Creates a maze object with height and width
+     * @param width
+     * @param height
+     */
     public Maze(int width, int height){
         this.width=width;
         this.height=height;
     }
 
 
+    /**
+     * Returns a List<MazeSection> which effectively holds
+     * the maze
+     * @return
+     */
     public List<MazeSection> getSections(){
         return maze;
     }
 
+    /**
+     * Returns a section of the maze
+     * @param index
+     * @return
+     */
     public MazeSection getSection(int index){
         return maze.get(index);
     }
 
+    /**
+     * Add a section to the maze
+     * @param section
+     */
     public void addSection(MazeSection section){
         maze.add(section);
     }
 
+    /**
+     * Returns the size of the List
+     * @return
+     */
     public int getSize(){
         return maze.size();
     }
 
+    /**
+     * Sets the maze as solved
+     */
     public void setSolved(){
         this.solved=true;
     }
 
+    /**
+     * Pretty prints the maze
+     */
     public void print(){
         if(solved){
             System.out.println("Solved");

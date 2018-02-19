@@ -10,6 +10,10 @@ public class MazeParser {
     private String wall = "1";
     private String floor = "0";
 
+    /**
+     * Parse File as List<String> to maze object
+     * @param list
+     */
     public MazeParser(List<String> list){
         //Index 0 is Width,Height
         int width = getMeteData(list.get(0),0);
@@ -25,19 +29,32 @@ public class MazeParser {
         populateNeighbours(width);
     }
 
+    /**
+     * Return populated maze object
+     * @return
+     */
     public Maze getMaze(){
         return maze;
     }
 
+    /**
+     * Get MetaData from data
+     * @param data
+     * @param index
+     * @return
+     */
     private int getMeteData(String data, int index){
         return Integer.parseInt(data.split(" ")[index]);
     }
 
+    /**
+     * Assign neighboring floors to a floor by looking N,E,S,W
+     * @param width
+     */
     private void populateNeighbours(int width){
         for(int i=0; i<maze.getSize(); i++){
             MazeSection mazeSection = maze.getSection(i);
             if(mazeSection instanceof Floor){
-                //Check North,East,South,West for other floors
                 int northIndex = i-width;
                 int eastIndex = i+1;
                 int southIndex = i+width;
@@ -58,6 +75,12 @@ public class MazeParser {
         }
     }
 
+    /**
+     * Parse List<String> into maze objects
+     * @param list
+     * @param width
+     * @param height
+     */
     private void generateMaze(List<String> list, int width, int height){
         for(int y=0; y<height; y++){
             String[] row = list.get(y).split(" ");
@@ -75,6 +98,12 @@ public class MazeParser {
         }
     }
 
+    /**
+     * Return Floor object as MazeSection,
+     *  if object is start or end we set it here
+     * @param coordinates
+     * @return
+     */
     private MazeSection getFloor(Coordinates coordinates){
         MazeSection mazeSection = new Floor(coordinates);
         if(mazeSection.getCoordinates().compare(start)){

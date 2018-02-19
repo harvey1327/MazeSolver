@@ -10,8 +10,16 @@ import java.util.Stack;
 
 public class DepthFirst {
 
+    /**
+     * This holds the path from start to end
+     */
     private Stack<Floor> finalStack= new Stack<Floor>();
 
+    /**
+     * Solve the maze provided by looking for the starting node
+     * and applying recursion
+     * @param maze
+     */
     public void solve(Maze maze){
         //Get Start Position
         Stack<Floor> stack=new Stack<Floor>();
@@ -29,6 +37,11 @@ public class DepthFirst {
         }
     }
 
+    /**
+     * Update maze object with path to return a solved maze
+     * @param maze
+     * @return
+     */
     private List<MazeSection> updateMazeWithPath(List<MazeSection> maze){
         List<MazeSection> solvedMaze = new ArrayList<>(maze);
         for(MazeSection section : maze){
@@ -42,6 +55,14 @@ public class DepthFirst {
         return solvedMaze;
     }
 
+    /**
+     * Recursion method based on Depth First which looks at
+     * neighboring floors to decide a potential path. Relies
+     * on a stack for Last In First Out
+     * @param floor
+     * @param stack
+     * @return
+     */
     private Stack<Floor> recursionDF(Floor floor, Stack<Floor> stack){
         stack.add(floor);
         floor.setVisited();
