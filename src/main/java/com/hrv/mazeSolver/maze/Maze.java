@@ -32,8 +32,6 @@ public class Maze {
     }
 
     public void print(){
-        System.out.println("Width: " + width);
-        System.out.println("Height: " + height);
         for(int i=0; i<maze.size(); i++){
             if(i%width<width-1){
                 System.out.print(maze.get(i));

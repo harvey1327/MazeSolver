@@ -21,6 +21,7 @@ public class MazeParser {
         this.maze = new Maze(width, height);
         //Index 3 onwards is the maze, so sublist
         generateMaze(list.subList(3, list.size()), width, height);
+        //Now we have the maze we can populate the neighbours for each floor
         populateNeighbours(width);
     }
 
