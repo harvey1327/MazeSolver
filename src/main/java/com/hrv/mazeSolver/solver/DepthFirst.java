@@ -1,6 +1,7 @@
 package com.hrv.mazeSolver.solver;
 
 import com.hrv.mazeSolver.maze.Floor;
+import com.hrv.mazeSolver.maze.Maze;
 import com.hrv.mazeSolver.maze.MazeSection;
 
 import java.util.ArrayList;
@@ -9,17 +10,17 @@ import java.util.Stack;
 
 public class DepthFirst {
 
-    private List<MazeSection> maze;
+    private Maze maze;
     private Stack<Floor> finalStack= new Stack<Floor>();
 
-    public DepthFirst(List<MazeSection> maze){
+    public DepthFirst(Maze maze){
         this.maze=maze;
     }
 
     public List<MazeSection> solve(){
         //Get Start Position
         Stack<Floor> stack=new Stack<Floor>();
-        for(MazeSection section : maze){
+        for(MazeSection section : maze.getSections()){
             if(section instanceof Floor){
                 Floor floor = (Floor) section;
                 if(floor.isStart()){
@@ -28,7 +29,7 @@ public class DepthFirst {
             }
         }
 //        System.out.println(finalStack);
-        List<MazeSection> solvedMaze = updateMazeWithPath(maze);
+        List<MazeSection> solvedMaze = updateMazeWithPath(maze.getSections());
         return solvedMaze;
     }
 

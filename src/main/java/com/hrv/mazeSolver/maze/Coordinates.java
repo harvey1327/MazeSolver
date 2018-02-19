@@ -5,7 +5,7 @@ public class Coordinates {
     private int x;
     private int y;
 
-    public Coordinates(int x, int y){
+    Coordinates(int x, int y){
         this.x=x;
         this.y=y;
     }
@@ -19,11 +19,7 @@ public class Coordinates {
     }
 
     public boolean compare(Coordinates coordinates){
-        if(coordinates.getX() == this.x && coordinates.getY() == this.y){
-            return true;
-        } else {
-            return false;
-        }
+        return coordinates.getX() == this.x && coordinates.getY() == this.y;
     }
 
     public String toString(){

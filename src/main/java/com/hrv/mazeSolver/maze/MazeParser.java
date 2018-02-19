@@ -1,8 +1,5 @@
 package com.hrv.mazeSolver.maze;
 
-import com.hrv.mazeSolver.solver.DepthFirst;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MazeParser {
@@ -11,7 +8,7 @@ public class MazeParser {
     private int height;
     private Coordinates start;
     private Coordinates end;
-    private List<MazeSection> maze = new ArrayList<MazeSection>();
+    private Maze maze;
     private String wall = "1";
     private String floor = "0";
 
@@ -23,21 +20,14 @@ public class MazeParser {
         this.start = new Coordinates(getMeteData(list.get(1),0), getMeteData(list.get(1),1));
         //Index 2 is EndX,EndY
         this.end = new Coordinates(getMeteData(list.get(2),0), getMeteData(list.get(2),1));
+        this.maze = new Maze(width, height);
         //Index 3 onwards is the maze, so sublist
         generateMaze(list.subList(3, list.size()));
         populateNeighbours();
     }
 
-    public void solve(){
-        DepthFirst depthFirst = new DepthFirst(maze);
-        List<MazeSection> solvedMaze = depthFirst.solve();
-        for(int i=0; i<solvedMaze.size(); i++){
-            if(i%width<width-1){
-                System.out.print(solvedMaze.get(i));
-            } else {
-                System.out.println(solvedMaze.get(i));
-            }
-        }
+    public Maze getMaze(){
+        return maze;
     }
 
     private int getMeteData(String data, int index){
@@ -45,25 +35,25 @@ public class MazeParser {
     }
 
     private void populateNeighbours(){
-        for(int i=0; i<maze.size(); i++){
-            MazeSection mazeSection = maze.get(i);
+        for(int i=0; i<maze.getSize(); i++){
+            MazeSection mazeSection = maze.getSection(i);
             if(mazeSection instanceof Floor){
                 //Check North,East,South,West for other floors
                 int northIndex = i-width;
                 int eastIndex = i+1;
                 int southIndex = i+width;
                 int westIndex = i-1;
-                if(northIndex > 0 && maze.get(northIndex) instanceof Floor) {
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(northIndex));
+                if(northIndex > 0 && maze.getSection(northIndex) instanceof Floor) {
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(northIndex));
                 }
-                if(eastIndex < maze.size() && maze.get(eastIndex) instanceof Floor){
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(eastIndex));
+                if(eastIndex < maze.getSize() && maze.getSection(eastIndex) instanceof Floor){
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(eastIndex));
                 }
-                if(southIndex < maze.size() && maze.get(southIndex) instanceof Floor){
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(southIndex));
+                if(southIndex < maze.getSize() && maze.getSection(southIndex) instanceof Floor){
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(southIndex));
                 }
-                if(westIndex > 0 && maze.get(westIndex) instanceof Floor){
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.get(westIndex));
+                if(westIndex > 0 && maze.getSection(westIndex) instanceof Floor){
+                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(westIndex));
                 }
             }
         }
@@ -81,7 +71,7 @@ public class MazeParser {
                 } else if(s.equals(floor)) {
                     mazeSection = getFloor(coordinates);
                 }
-                maze.add(mazeSection);
+                maze.addSection(mazeSection);
             }
         }
     }
@@ -94,19 +84,5 @@ public class MazeParser {
             ((Floor) mazeSection).setEnd();
         }
         return mazeSection;
-    }
-
-    public void print(){
-        System.out.println("Width: " + width);
-        System.out.println("Height: " + height);
-        System.out.println("Start: " + start);
-        System.out.println("End: " + end);
-        for(int i=0; i<maze.size(); i++){
-            if(i%width<width-1){
-                System.out.print(maze.get(i));
-            } else {
-                System.out.println(maze.get(i));
-            }
-        }
     }
 }
