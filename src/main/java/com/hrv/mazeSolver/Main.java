@@ -10,15 +10,15 @@ import java.util.List;
 public class Main {
 
     public static void main(String args[]){
+        //Read file into List
         List<String> list = new FileIO().readFileIntoList("medium_input.txt");
+        //Parse list and get maze
         MazeParser mazeParser = new MazeParser(list);
         Maze maze = mazeParser.getMaze();
-
-        maze.print();
-        System.out.println("-------------------------------");
-        DepthFirst depthFirst = new DepthFirst(maze);
-        depthFirst.solve();
-
+        //Solve the maze
+        DepthFirst depthFirst = new DepthFirst();
+        depthFirst.solve(maze);
+        //Print maze
         maze.print();
     }
 }

@@ -32,8 +32,6 @@ public class Maze {
     }
 
     public void print(){
-        System.out.println("Start: "+ getStart());
-        System.out.println("End: "+ getEnd());
         System.out.println("Width: " + width);
         System.out.println("Height: " + height);
         for(int i=0; i<maze.size(); i++){
@@ -43,31 +41,5 @@ public class Maze {
                 System.out.println(maze.get(i));
             }
         }
-    }
-
-    private Coordinates getStart(){
-        Coordinates coordinates = null;
-        for(MazeSection section : maze){
-            if(section instanceof Floor){
-                Floor floor = (Floor) section;
-                if(floor.isStart()){
-                    coordinates = floor.getCoordinates();
-                }
-            }
-        }
-        return coordinates;
-    }
-
-    private Coordinates getEnd(){
-        Coordinates coordinates = null;
-        for(MazeSection section : maze){
-            if(section instanceof Floor){
-                Floor floor = (Floor) section;
-                if(floor.isEnd()){
-                    coordinates = floor.getCoordinates();
-                }
-            }
-        }
-        return coordinates;
     }
 }

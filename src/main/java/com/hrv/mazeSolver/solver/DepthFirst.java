@@ -10,14 +10,9 @@ import java.util.Stack;
 
 public class DepthFirst {
 
-    private Maze maze;
     private Stack<Floor> finalStack= new Stack<Floor>();
 
-    public DepthFirst(Maze maze){
-        this.maze=maze;
-    }
-
-    public List<MazeSection> solve(){
+    public void solve(Maze maze){
         //Get Start Position
         Stack<Floor> stack=new Stack<Floor>();
         for(MazeSection section : maze.getSections()){
@@ -28,8 +23,7 @@ public class DepthFirst {
                 }
             }
         }
-        List<MazeSection> solvedMaze = updateMazeWithPath(maze.getSections());
-        return solvedMaze;
+        updateMazeWithPath(maze.getSections());
     }
 
     private List<MazeSection> updateMazeWithPath(List<MazeSection> maze){
