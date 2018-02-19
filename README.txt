@@ -70,3 +70,7 @@ OUTPUT:
 # #  XXXE#
 ##########
 
+How to run
+==============
+
+The maze jar is built using `gradlew build` . To run use the generated jar 'mazesolver-1.0-SNAPSHOT.jar -jar <filePath>'

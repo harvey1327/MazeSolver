@@ -22,7 +22,7 @@ public class Main {
             //Print maze
             maze.print();
         } else {
-            System.out.println("Too many args");
+            System.out.println("Too many,none or negative args");
         }
     }
 }
