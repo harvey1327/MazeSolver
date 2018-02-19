@@ -10,15 +10,19 @@ import java.util.List;
 public class Main {
 
     public static void main(String args[]){
-        //Read file into List
-        List<String> list = new FileIO().readFileIntoList("harvey2.txt");
-        //Parse list and get maze
-        MazeParser mazeParser = new MazeParser(list);
-        Maze maze = mazeParser.getMaze();
-        //Solve the maze
-        DepthFirst depthFirst = new DepthFirst();
-        depthFirst.solve(maze);
-        //Print maze
-        maze.print();
+        if(args.length==1){
+            //Read file into List
+            List<String> list = new FileIO().readFileIntoList(args[0]);
+            //Parse list and get maze
+            MazeParser mazeParser = new MazeParser(list);
+            Maze maze = mazeParser.getMaze();
+            //Solve the maze
+            DepthFirst depthFirst = new DepthFirst();
+            depthFirst.solve(maze);
+            //Print maze
+            maze.print();
+        } else {
+            System.out.println("Too many args");
+        }
     }
 }

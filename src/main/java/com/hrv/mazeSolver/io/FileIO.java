@@ -12,7 +12,7 @@ public class FileIO {
     public List<String> readFileIntoList(String fileName){
         List<String> list = null;
         try {
-            Path path = Paths.get(getClass().getClassLoader().getResource(fileName).toURI());
+            Path path = Paths.get(fileName);
             Stream<String> stream = Files.lines(path);
             list = stream.collect(Collectors.toList());
             stream.close();
