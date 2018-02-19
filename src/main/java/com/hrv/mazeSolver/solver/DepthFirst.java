@@ -28,7 +28,6 @@ public class DepthFirst {
                 }
             }
         }
-//        System.out.println(finalStack);
         List<MazeSection> solvedMaze = updateMazeWithPath(maze.getSections());
         return solvedMaze;
     }
@@ -47,29 +46,28 @@ public class DepthFirst {
     }
 
     private Stack<Floor> recursionDF(Floor floor, Stack<Floor> stack){
-//        System.out.println("Adding Floor: "+floor);
         stack.add(floor);
         floor.setVisited();
         List<Floor> neighbours = floor.getNeighbour();
         if(!floor.isEnd()){
             if(!neighbours.isEmpty()){
-                boolean canPop=true;
                 for(Floor neighbourFloor : neighbours) {
-                    canPop=true;
-//                    System.out.println("Current Floor: "+floor+" n at: " + neighbourFloor);
                     if (!neighbourFloor.isVisited()) {
-                        canPop=false;
                         stack=recursionDF(neighbourFloor, stack);
                     }
                 }
                 //If all neighbours have been visited then pop
-                if(canPop) {
-//                    System.out.println("Popping: "+stack.peek()+" at: "+floor);
+                boolean unVisited=false;
+                for(Floor neighbourFloor : neighbours){
+                    if (!neighbourFloor.isVisited()) {
+                        unVisited=true;
+                    }
+                }
+                if(!unVisited){
                     stack.pop();
                 }
             }
         } else {
-//            System.out.println("FOUND END WITH STACK: "+stack);
             finalStack.addAll(stack);
         }
         return stack;

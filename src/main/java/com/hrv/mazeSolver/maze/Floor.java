@@ -18,9 +18,12 @@ public class Floor extends MazeSection {
     }
 
     public String toString() {
-//        return super.getCoordinates().toString();
-        if(path){
-            return "P";
+        if(start){
+            return "S";
+        } else if(end){
+            return "E";
+        } else if(path) {
+            return "X";
         } else {
             return " ";
         }

@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String args[]){
-        List<String> list = new FileIO().readFileIntoList("input.txt");
+        List<String> list = new FileIO().readFileIntoList("medium_input.txt");
         MazeParser mazeParser = new MazeParser(list);
         Maze maze = mazeParser.getMaze();
 
