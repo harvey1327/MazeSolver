@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String args[]){
         //Read file into List
-        List<String> list = new FileIO().readFileIntoList("medium_input.txt");
+        List<String> list = new FileIO().readFileIntoList("harvey2.txt");
         //Parse list and get maze
         MazeParser mazeParser = new MazeParser(list);
         Maze maze = mazeParser.getMaze();

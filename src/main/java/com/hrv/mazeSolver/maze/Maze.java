@@ -32,6 +32,10 @@ public class Maze {
         return maze.size();
     }
 
+    public void setSolved(){
+        this.solved=true;
+    }
+
     public void print(){
         if(solved){
             System.out.println("Solved");

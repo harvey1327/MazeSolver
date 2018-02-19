@@ -23,7 +23,10 @@ public class DepthFirst {
                 }
             }
         }
-        updateMazeWithPath(maze.getSections());
+        if(!finalStack.isEmpty()){
+            updateMazeWithPath(maze.getSections());
+            maze.setSolved();
+        }
     }
 
     private List<MazeSection> updateMazeWithPath(List<MazeSection> maze){
