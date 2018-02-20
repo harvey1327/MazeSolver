@@ -29,4 +29,11 @@ public class FloorTest {
         floor.setPath();
         assertEquals("X",floor.toString());
     }
+
+    @Test
+    public void testReturnStringIfEmpty(){
+        Coordinates coordinates = new Coordinates(1,1);
+        Floor floor = new Floor(coordinates);
+        assertEquals(" ",floor.toString());
+    }
 }

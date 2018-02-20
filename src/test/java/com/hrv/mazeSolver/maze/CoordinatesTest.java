@@ -21,9 +21,23 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void testCompareReturnsFalse(){
+    public void testCompareReturnsFalseIfXNonEqual(){
         Coordinates coordinates1 = new Coordinates(1,1);
         Coordinates coordinates2 = new Coordinates(2,1);
+        Assert.assertFalse(coordinates1.compare(coordinates2));
+    }
+
+    @Test
+    public void testCompareReturnsFalseIfYNonEqual(){
+        Coordinates coordinates1 = new Coordinates(1,1);
+        Coordinates coordinates2 = new Coordinates(1,2);
+        Assert.assertFalse(coordinates1.compare(coordinates2));
+    }
+
+    @Test
+    public void testCompareReturnsFalseIfBothNonEqual(){
+        Coordinates coordinates1 = new Coordinates(1,1);
+        Coordinates coordinates2 = new Coordinates(2,2);
         Assert.assertFalse(coordinates1.compare(coordinates2));
     }
 }

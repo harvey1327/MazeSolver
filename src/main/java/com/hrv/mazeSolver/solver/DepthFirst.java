@@ -83,6 +83,7 @@ public class DepthFirst {
                 }
             }
         } else {
+            //At this point we have found a path from start to end
             finalStack.addAll(stack);
         }
         return stack;

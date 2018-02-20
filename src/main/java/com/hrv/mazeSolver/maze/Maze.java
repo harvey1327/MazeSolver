@@ -63,6 +63,14 @@ public class Maze {
     }
 
     /**
+     * Returns solved boolean
+     * @return
+     */
+    public boolean isSolved(){
+        return solved;
+    }
+
+    /**
      * Pretty prints the maze
      */
     public void print(){

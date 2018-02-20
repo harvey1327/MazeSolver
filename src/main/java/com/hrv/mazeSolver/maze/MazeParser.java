@@ -22,9 +22,8 @@ public class MazeParser {
         this.start = new Coordinates(getMeteData(list.get(1),0), getMeteData(list.get(1),1));
         //Index 2 is EndX,EndY
         this.end = new Coordinates(getMeteData(list.get(2),0), getMeteData(list.get(2),1));
-        this.maze = new Maze(width, height);
         //Index 3 onwards is the maze, so sublist
-        generateMaze(list.subList(3, list.size()), width, height);
+        this.maze = generateMaze(list.subList(3, list.size()), width, height);
         //Now we have the maze we can populate the neighbours for each floor
         populateNeighbours(width);
     }
@@ -59,17 +58,18 @@ public class MazeParser {
                 int eastIndex = i+1;
                 int southIndex = i+width;
                 int westIndex = i-1;
+                Floor floor = (Floor) mazeSection;
                 if(northIndex > 0 && maze.getSection(northIndex) instanceof Floor) {
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(northIndex));
+                    floor.addNeighbour((Floor) maze.getSection(northIndex));
                 }
                 if(eastIndex < maze.getSize() && maze.getSection(eastIndex) instanceof Floor){
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(eastIndex));
+                    floor.addNeighbour((Floor) maze.getSection(eastIndex));
                 }
                 if(southIndex < maze.getSize() && maze.getSection(southIndex) instanceof Floor){
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(southIndex));
+                    floor.addNeighbour((Floor) maze.getSection(southIndex));
                 }
                 if(westIndex > 0 && maze.getSection(westIndex) instanceof Floor){
-                    ((Floor) mazeSection).addNeighbour((Floor) maze.getSection(westIndex));
+                    floor.addNeighbour((Floor) maze.getSection(westIndex));
                 }
             }
         }
@@ -81,7 +81,8 @@ public class MazeParser {
      * @param width
      * @param height
      */
-    private void generateMaze(List<String> list, int width, int height){
+    private Maze generateMaze(List<String> list, int width, int height){
+        Maze maze = new Maze(width, height);
         for(int y=0; y<height; y++){
             String[] row = list.get(y).split(" ");
             for(int x=0; x<width; x++){
@@ -96,6 +97,7 @@ public class MazeParser {
                 maze.addSection(mazeSection);
             }
         }
+        return maze;
     }
 
     /**
