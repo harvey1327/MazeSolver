@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class FloorTest {
 
     @Test
-    public void returnStringIfStart(){
+    public void testReturnStringIfStart(){
         Coordinates coordinates = new Coordinates(1,1);
         Floor floor = new Floor(coordinates);
         floor.setStart();
@@ -15,7 +15,7 @@ public class FloorTest {
     }
 
     @Test
-    public void returnStringIfEnd(){
+    public void testReturnStringIfEnd(){
         Coordinates coordinates = new Coordinates(1,1);
         Floor floor = new Floor(coordinates);
         floor.setEnd();
@@ -23,7 +23,7 @@ public class FloorTest {
     }
 
     @Test
-    public void returnStringIfPath(){
+    public void testReturnStringIfPath(){
         Coordinates coordinates = new Coordinates(1,1);
         Floor floor = new Floor(coordinates);
         floor.setPath();

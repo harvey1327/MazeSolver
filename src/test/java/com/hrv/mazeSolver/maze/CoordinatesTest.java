@@ -6,7 +6,7 @@ import org.junit.Test;
 public class CoordinatesTest {
 
     @Test
-    public void setCoordinates(){
+    public void testSetCoordinates(){
         int x = 1;
         int y = 1;
         Coordinates coordinates = new Coordinates(x,y);

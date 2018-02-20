@@ -9,7 +9,7 @@ import java.util.List;
 public class MazeParserTest {
 
     @Test
-    public void parseList(){
+    public void testParseList(){
         List<String> dataList1 = new ArrayList<String>();
         dataList1.add("4 4");
         dataList1.add("1 1");
